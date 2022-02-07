@@ -23,7 +23,13 @@ console.log('lesson 2');
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
-
+function sum(param1: number) {
+    return function (param2: number) {
+        return param1 + param2
+    }
+}
+let res = sum(3)(6)
+console.log(res === 9)
 // Task 02
 // Реализовать функцию makeCounter которая работает следующим образом:
 // const counter = makeCounter();
@@ -32,7 +38,19 @@ console.log('lesson 2');
 // const counter2 = makeCounter();
 // counter2(); // 1
 // counter(); // 3
+function makeCounter(){
+    let n=1
+    return function(){
+        return n++
+    }
+}
 
+const counter = makeCounter();
+console.log(counter())
+console.log(counter())
+const counter2 = makeCounter();
+console.log(counter2())
+console.log(counter())
 // Task 03
 // Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента и это число было стартовым значением счетчика
 // и возвращала следующий объект методов:
@@ -40,7 +58,31 @@ console.log('lesson 2');
 // decrease: -1
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
+function Counter(this: any, start: number){
 
+    this.increase = function(){
+        return ++start
+    }
+
+    this.decrease = function(){
+        return --start
+    }
+    this.reset = function(){
+        return start = 0
+    }
+    this.set = function(newStart: number){
+        return start = newStart
+    }
+}
+
+let test = new (Counter as any)(5)
+console.log(test.increase())
+console.log(test.increase())
+console.log(test.reset())
+console.log(test.increase())
+console.log(test.set(10))
+console.log(test.increase())
+console.log(test.decrease())
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
 // и что бы корректно работали следующие вызовы:
